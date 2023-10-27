@@ -11,4 +11,16 @@ all:
     ./snes_spc/SPC_Filter.cpp \
     -o Play
 
+portaudio:
+	g++ demo/port_audio_player.cpp \
+    -I. -I./snes_spc -I./demo \
+    ./snes_spc/spc.cpp \
+    ./snes_spc/SNES_SPC_misc.cpp \
+    ./snes_spc/SNES_SPC.cpp \
+    ./snes_spc/SPC_DSP.cpp \
+    ./snes_spc/SNES_SPC_state.cpp \
+    ./demo/wave_writer.c \
+    ./demo/demo_util.c \
+    ./snes_spc/SPC_Filter.cpp \
+     -lportaudio -o PortAudioPlayer
 
