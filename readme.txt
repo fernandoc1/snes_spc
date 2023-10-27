@@ -25,6 +25,11 @@ Website: http://www.slack.net/~ant/
 Forum  : http://groups.google.com/group/blargg-sound-libs
 License: GNU Lesser General Public License (LGPL)
 
+Build on Linux
+--------------
+
+Just use the make file and it will generate a Play executable that can
+convert a spc file in a wav file.
 
 Getting Started
 ---------------
