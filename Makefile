@@ -9,12 +9,13 @@ CFILES := $(wildcard $(SRCDIR)/*.cpp)
 OFILES := $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(CFILES))
 
 # Target to build all object files
-all: $(OFILES) portaudio
+all: clean $(OFILES) portaudio
 
 # Rule to compile each .c file to .o file
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(OBJDIR)
 	gcc -c $< -o $@
+	gcc -E -c $< > $@.cpp
 
 portaudio:
 	g++ demo/port_audio_player.cpp \
