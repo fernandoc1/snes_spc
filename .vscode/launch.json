@@ -9,7 +9,7 @@
             "type": "gdb",
             "request": "launch",
             "target": "./PortAudioPlayer",
-            "arguments": "/home/fernando/tmp/xg_Knight_of_Fire_enh.spc",
+            "arguments": "./audio_files/test.spc",
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText"
         }

@@ -53,4 +53,5 @@ dkms.conf
 #Object files
 
 obj/*
+audio_files/*
 PortAudioPlayer
