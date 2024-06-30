@@ -22,7 +22,6 @@ portaudio:
 	g++ -g demo/port_audio_player.cpp \
     -I. -I./snes_spc -I./demo \
     $(OBJDIR)/*.o \
-    ./demo/wave_writer.c \
     ./demo/demo_util.c \
     -lportaudio -o PortAudioPlayer
 
