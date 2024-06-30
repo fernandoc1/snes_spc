@@ -14,16 +14,17 @@ all: clean $(OFILES) portaudio
 # Rule to compile each .c file to .o file
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(OBJDIR)
-	gcc -c $< -o $@
-	gcc -E -c $< > $@.cpp
+	#g++ -c $< -o $@
+	g++ -E -c $< | grep -v "^#" | grep -v -e '^[[:space:]]*$$' > $@.cpp
+	g++ -g -c $@.cpp -o $@
 
 portaudio:
-	g++ demo/port_audio_player.cpp \
+	g++ -g demo/port_audio_player.cpp \
     -I. -I./snes_spc -I./demo \
     $(OBJDIR)/*.o \
     ./demo/wave_writer.c \
     ./demo/demo_util.c \
-     -lportaudio -o PortAudioPlayer
+    -lportaudio -o PortAudioPlayer
 
 
 # A phony target to clean up
