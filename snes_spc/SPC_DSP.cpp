@@ -16,7 +16,7 @@ details. You should have received a copy of the GNU Lesser General Public
 License along with this module; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
-#include "blargg_source.h"
+//#include "blargg_source.h"
 
 #ifdef BLARGG_ENABLE_OPTIMIZER
 	#include BLARGG_ENABLE_OPTIMIZER
@@ -64,8 +64,8 @@ static BOOST::uint8_t const initial_regs [SPC_DSP::register_count] =
 	out += 2;\
 	if ( out >= m.out_end )\
 	{\
-		check( out == m.out_end );\
-		check( m.out_end != &m.extra [extra_size] || \
+		assert( out == m.out_end );\
+		assert( m.out_end != &m.extra [extra_size] || \
 			(m.extra <= m.out_begin && m.extra < &m.extra [extra_size]) );\
 		out       = m.extra;\
 		m.out_end = &m.extra [extra_size];\
@@ -74,7 +74,7 @@ static BOOST::uint8_t const initial_regs [SPC_DSP::register_count] =
 
 void SPC_DSP::set_output( sample_t* out, int size )
 {
-	require( (size & 1) == 0 ); // must be even
+	assert( (size & 1) == 0 ); // must be even
 	if ( !out )
 	{
 		out  = m.extra;
@@ -785,7 +785,7 @@ PHASE(31)  V(V4,0)       V(V1,2)\
 
 void SPC_DSP::run( int clocks_remain )
 {
-	require( clocks_remain > 0 );
+	assert( clocks_remain > 0 );
 
 	int const phase = m.phase;
 	m.phase = (phase + clocks_remain) & 31;
@@ -833,7 +833,7 @@ void SPC_DSP::init( void* ram_64k )
 
 void SPC_DSP::soft_reset_common()
 {
-	require( m.ram ); // init() must have been called already
+	assert( m.ram ); // init() must have been called already
 
 	m.noise              = 0x4000;
 	m.echo_hist_pos      = m.echo_hist;
