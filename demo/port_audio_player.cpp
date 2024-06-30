@@ -34,7 +34,8 @@ int main(int argc, char** argv) {
     snes_spc = new SNES_SPC;
     snes_spc->init();
 
-	filter = spc_filter_new();
+	filter = new SPC_Filter;
+
 	if ( !snes_spc || !filter ) error( "Out of memory" );
 
 	/* Load SPC */
@@ -44,14 +45,14 @@ int main(int argc, char** argv) {
 		void* spc = load_file( (argc > 1) ? argv [1] : "test.spc", &spc_size );
 
 		/* Load SPC data into emulator */
-		error( spc_load_spc( snes_spc, spc, spc_size ) );
-		free( spc ); /* emulator makes copy of data */
+		error(snes_spc->load_spc(spc, spc_size));
+		free(spc); /* emulator makes copy of data */
 
 		/* Most SPC files have garbage data in the echo buffer, so clear that */
-		spc_clear_echo( snes_spc );
+		snes_spc->clear_echo();
 
 		/* Clear filter before playing */
-		spc_filter_clear( filter );
+		filter->clear();
 	}
 
     PaError err;
