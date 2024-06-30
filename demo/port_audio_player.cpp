@@ -3,7 +3,6 @@
 #include <math.h>
 #include <portaudio.h>
 
-#include "snes_spc/spc.h"
 #include "demo_util.h"
 
 #include "snes_spc/SNES_SPC.h"
@@ -24,7 +23,7 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
 	error(snes_spc->play(framesPerBuffer, (short*)outputBuffer));
 
 	/* Filter samples */
-	filter->run((spc_sample_t*)outputBuffer, framesPerBuffer);
+	filter->run((short*)outputBuffer, framesPerBuffer);
 
     return paContinue;
 }
@@ -65,7 +64,7 @@ int main(int argc, char** argv) {
     }
 
     int frames_per_buffer = 2048;
-    err = Pa_OpenDefaultStream(&stream, 0, 1, paInt16, spc_sample_rate * 2, frames_per_buffer, audioCallback, NULL);
+    err = Pa_OpenDefaultStream(&stream, 0, 1, paInt16, SNES_SPC::sample_rate * 2, frames_per_buffer, audioCallback, NULL);
     if (err != paNoError) {
         fprintf(stderr, "PortAudio error: %s\n", Pa_GetErrorText(err));
         return 1;
