@@ -30,5 +30,5 @@ portaudio:
 .PHONY: clean
 clean:
 	@echo Cleaning up...
-	rm -rf $(OBJDIR)/*.o
+	rm -rf $(OBJDIR)
 

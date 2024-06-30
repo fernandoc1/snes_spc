@@ -4,8 +4,6 @@
 #ifndef SPC_FILTER_H
 #define SPC_FILTER_H
 
-#include "blargg_common.h"
-
 struct SPC_Filter {
 public:
 
@@ -31,7 +29,7 @@ public:
 
 public:
 	SPC_Filter();
-	BLARGG_DISABLE_NOTHROW
+
 private:
 	enum { gain_bits = 8 };
 	int gain;

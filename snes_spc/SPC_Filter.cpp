@@ -49,7 +49,7 @@ void SPC_Filter::run( short* io, int count )
 			// High-pass filter ("leaky integrator")
 			int delta = f - pp1;
 			pp1 = f;
-			int s = sum >> (gain_bits + 2);
+			int s = sum >> (SPC_Filter::gain_bits + 2);
 			sum += (delta * gain) - (sum >> bass);
 
 			// Clamp to 16 bits
