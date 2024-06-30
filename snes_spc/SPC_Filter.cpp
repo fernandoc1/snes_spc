@@ -15,7 +15,7 @@ details. You should have received a copy of the GNU Lesser General Public
 License along with this module; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
-#include "blargg_source.h"
+#include <cassert>
 
 void SPC_Filter::clear() { memset( ch, 0, sizeof ch ); }
 
@@ -28,7 +28,7 @@ SPC_Filter::SPC_Filter()
 
 void SPC_Filter::run( short* io, int count )
 {
-	require( (count & 1) == 0 ); // must be even
+	assert( (count & 1) == 0 ); // must be even
 
 	int const gain = this->gain;
 	int const bass = this->bass;
