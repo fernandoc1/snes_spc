@@ -21,10 +21,10 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
     float *out = (float *)outputBuffer;
     (void)inputBuffer; // Prevent unused variable warning
 
-	error(spc_play(snes_spc, framesPerBuffer, (short*)outputBuffer));
+	error(snes_spc->play(framesPerBuffer, (short*)outputBuffer));
 
 	/* Filter samples */
-	spc_filter_run(filter, (spc_sample_t*)outputBuffer, framesPerBuffer);
+	filter->run((spc_sample_t*)outputBuffer, framesPerBuffer);
 
     return paContinue;
 }
