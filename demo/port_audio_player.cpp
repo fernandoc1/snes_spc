@@ -6,6 +6,9 @@
 #include "snes_spc/spc.h"
 #include "demo_util.h"
 
+#include "snes_spc/SNES_SPC.h"
+#include "snes_spc/SPC_Filter.h"
+
 SNES_SPC* snes_spc = NULL;
 SPC_Filter* filter = NULL;
 
@@ -28,7 +31,9 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
 
 int main(int argc, char** argv) {
     /* Create emulator and filter */
-	snes_spc = spc_new();
+    snes_spc = new SNES_SPC;
+    snes_spc->init();
+
 	filter = spc_filter_new();
 	if ( !snes_spc || !filter ) error( "Out of memory" );
 
