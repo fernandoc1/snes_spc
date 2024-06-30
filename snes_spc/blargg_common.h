@@ -11,8 +11,7 @@
 #include <limits.h>
 
 #undef BLARGG_COMMON_H
-// allow blargg_config.h to #include blargg_common.h
-#include "blargg_config.h"
+
 #ifndef BLARGG_COMMON_H
 #define BLARGG_COMMON_H
 
