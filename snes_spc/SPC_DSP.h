@@ -4,13 +4,13 @@
 #ifndef SPC_DSP_H
 #define SPC_DSP_H
 
-#include "blargg_common.h"
+#include <cstdint>
+#include <cstddef>
 
 extern "C" { typedef void (*dsp_copy_func_t)( unsigned char** io, void* state, size_t ); }
 
 class SPC_DSP {
 public:
-	typedef BOOST::uint8_t uint8_t;
 
 // Setup
 
@@ -95,10 +95,6 @@ public:
 	sample_t const* out_pos() const { return m.out; }
 	void disable_surround( bool ) { } // not supported
 public:
-	BLARGG_DISABLE_NOTHROW
-
-	typedef BOOST::int8_t   int8_t;
-	typedef BOOST::int16_t int16_t;
 
 	enum { echo_hist_size = 8 };
 
