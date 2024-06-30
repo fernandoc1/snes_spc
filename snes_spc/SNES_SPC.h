@@ -5,11 +5,14 @@
 #define SNES_SPC_H
 
 #include "SPC_DSP.h"
+#include <cstdint>
+#include <climits>
 #include "blargg_endian.h"
+
+typedef const char* blargg_err_t;
 
 struct SNES_SPC {
 public:
-	typedef BOOST::uint8_t uint8_t;
 
 	// Must be called once before using
 	blargg_err_t init();
@@ -105,9 +108,6 @@ public:
 #endif
 
 public:
-	BLARGG_DISABLE_NOTHROW
-
-	typedef BOOST::uint16_t uint16_t;
 
 	// Time relative to m_spc_time. Speeds up code a bit by eliminating need to
 	// constantly add m_spc_time to time from CPU. CPU uses time that ends at
