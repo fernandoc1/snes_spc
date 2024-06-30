@@ -191,10 +191,6 @@ loop:
 	unsigned opcode;
 	unsigned data;
 
-	check( (unsigned) a < 0x100 );
-	check( (unsigned) x < 0x100 );
-	check( (unsigned) y < 0x100 );
-
 	opcode = *pc;
 	if ( (rel_time += m.cycle_table [opcode]) > 0 )
 		goto out_of_time;

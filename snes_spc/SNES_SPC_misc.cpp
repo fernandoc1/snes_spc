@@ -17,8 +17,6 @@ details. You should have received a copy of the GNU Lesser General Public
 License along with this module; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
-#include "blargg_source.h"
-
 #define RAM         (m.ram.ram)
 #define REGS        (m.smp_regs [0])
 #define REGS_IN     (m.smp_regs [1])
@@ -276,7 +274,7 @@ void SNES_SPC::reset_buf()
 
 void SNES_SPC::set_output( sample_t* out, int size )
 {
-	require( (size & 1) == 0 ); // size must be even
+	assert( (size & 1) == 0 ); // size must be even
 
 	m.extra_clocks &= clocks_per_sample - 1;
 	if ( out )
@@ -336,7 +334,7 @@ void SNES_SPC::save_extra()
 
 blargg_err_t SNES_SPC::play( int count, sample_t* out )
 {
-	require( (count & 1) == 0 ); // must be even
+	assert( (count & 1) == 0 ); // must be even
 	if ( count )
 	{
 		set_output( out, count );

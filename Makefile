@@ -31,4 +31,5 @@ portaudio:
 clean:
 	@echo Cleaning up...
 	rm -rf $(OBJDIR)
+	rm PortAudioPlayer
 

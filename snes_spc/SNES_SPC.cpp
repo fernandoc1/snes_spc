@@ -17,7 +17,7 @@ details. You should have received a copy of the GNU Lesser General Public
 License along with this module; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
-#include "blargg_source.h"
+static inline void dprintf( const char*, ... ) { }
 
 #define RAM         (m.ram.ram)
 #define REGS        (m.smp_regs [0])
@@ -213,7 +213,7 @@ inline void SNES_SPC::dsp_write( int data, rel_time_t time )
 		return false;
 	}
 
-	#define MEM_ACCESS( time, addr ) check( !check_echo_access( (uint16_t) addr ) );
+	//#define MEM_ACCESS( time, addr ) check( !check_echo_access( (uint16_t) addr ) );
 #else
 	#define MEM_ACCESS( time, addr )
 #endif
@@ -412,7 +412,7 @@ int const bits_in_int = CHAR_BIT * sizeof (int);
 
 void SNES_SPC::cpu_write( int data, int addr, rel_time_t time )
 {
-	MEM_ACCESS( time, addr )
+	//MEM_ACCESS( time, addr )
 
 	// RAM
 	RAM [addr] = (uint8_t) data;
@@ -466,7 +466,7 @@ inline int SNES_SPC::cpu_read_smp_reg( int reg, rel_time_t time )
 
 int SNES_SPC::cpu_read( int addr, rel_time_t time )
 {
-	MEM_ACCESS( time, addr )
+	//MEM_ACCESS( time, addr )
 
 	// RAM
 	int result = RAM [addr];
