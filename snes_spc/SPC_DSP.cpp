@@ -17,17 +17,6 @@ details. You should have received a copy of the GNU Lesser General Public
 License along with this module; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
-//#include "blargg_source.h"
-
-#ifdef BLARGG_ENABLE_OPTIMIZER
-	#include BLARGG_ENABLE_OPTIMIZER
-#endif
-
-
-// TODO: add to blargg_endian.h
-#define GET_LE16SA( addr )      ((int16_t) get_le16( addr ))
-#define GET_LE16A( addr )       get_le16( addr )
-#define SET_LE16A( addr, data ) set_le16( addr, data )
 
 static uint8_t const initial_regs [SPC_DSP::register_count] =
 {
@@ -394,7 +383,7 @@ inline VOICE_CLOCK( V2 )
 	uint8_t const* entry = &m.ram [m.t_dir_addr];
 	if ( !v->kon_delay )
 		entry += 2;
-	m.t_brr_next_addr = GET_LE16A( entry );
+	m.t_brr_next_addr = get_le16( entry );
 
 	m.t_adsr0 = VREG(v->regs,adsr0);
 
@@ -594,7 +583,7 @@ VOICE_CLOCK(V9_V6_V3) { voice_V9(v); voice_V6(v+1); voice_V3(v+2); }
 
 inline void SPC_DSP::echo_read( int ch )
 {
-	int s = GET_LE16SA( ECHO_PTR( ch ) );
+	int s = get_le16( ECHO_PTR( ch ) );
 	// second copy simplifies wrap-around handling
 	ECHO_FIR( 0 ) [ch] = ECHO_FIR( 8 ) [ch] = s >> 1;
 }
@@ -705,7 +694,7 @@ ECHO_CLOCK( 28 )
 inline void SPC_DSP::echo_write( int ch )
 {
 	if ( !(m.t_echo_enabled & 0x20) )
-		SET_LE16A( ECHO_PTR( ch ), m.t_echo_out [ch] );
+		set_le16( ECHO_PTR( ch ), m.t_echo_out [ch] );
 	m.t_echo_out [ch] = 0;
 }
 ECHO_CLOCK( 29 )
