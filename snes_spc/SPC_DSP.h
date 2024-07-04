@@ -291,8 +291,8 @@ public:
 
 #define SPC_COPY( type, state )\
 {\
-	state = (BOOST::type) copier.copy_int( state, sizeof (BOOST::type) );\
-	assert( (BOOST::type) state == state );\
+	state = (type) copier.copy_int( state, sizeof (type) );\
+	assert( (type) state == state );\
 }
 
 #endif

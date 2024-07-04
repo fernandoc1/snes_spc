@@ -613,12 +613,12 @@ void SNES_SPC::end_frame( time_t end_time )
 #define READ_DP(  time, addr )              READ ( time, DP_ADDR( addr ) )
 #define WRITE_DP( time, addr, data )        WRITE( time, DP_ADDR( addr ), data )
 
-#define READ_PROG16( addr )                 GET_LE16( ram + (addr) )
+#define READ_PROG16( addr )                 get_le16( ram + (addr) )
 
 #define SET_PC( n )     (pc = ram + (n))
 #define GET_PC()        (pc - ram)
 #define READ_PC( pc )   (*(pc))
-#define READ_PC16( pc ) GET_LE16( pc )
+#define READ_PC16( pc ) get_le16( pc )
 
 // TODO: remove non-wrapping versions?
 #define SPC_NO_SP_WRAPAROUND 0
@@ -627,7 +627,7 @@ void SNES_SPC::end_frame( time_t end_time )
 #define GET_SP()        (sp - 0x101 - ram)
 
 #if SPC_NO_SP_WRAPAROUND
-#define PUSH16( v )     (sp -= 2, SET_LE16( sp, v ))
+#define PUSH16( v )     (sp -= 2, set_le16( sp, v ))
 #define PUSH( v )       (void) (*--sp = (uint8_t) (v))
 #define POP( out )      (void) ((out) = *sp++)
 
@@ -637,7 +637,7 @@ void SNES_SPC::end_frame( time_t end_time )
 	int addr = (sp -= 2) - ram;\
 	if ( addr > 0x100 )\
 	{\
-		SET_LE16( sp, data );\
+		set_le16( sp, data );\
 	}\
 	else\
 	{\
@@ -800,7 +800,7 @@ loop:
 		#else
 		{
 			int addr = sp - ram;
-			SET_PC( GET_LE16( sp ) );
+			SET_PC( get_le16( sp ) );
 			sp += 2;
 			if ( addr < 0x1FF )
 				goto loop;
@@ -1420,7 +1420,7 @@ loop:
 // 12. BRANCHING COMMANDS
 
 	case 0x2F: // BRA rel
-		pc += (BOOST::int8_t) data;
+		pc += (int8_t) data;
 		goto inc_pc_loop;
 
 	case 0x30: // BMI
@@ -1546,7 +1546,7 @@ loop:
 		int temp;
 	case 0x7F: // RET1
 		temp = *sp;
-		SET_PC( GET_LE16( sp + 1 ) );
+		SET_PC( get_le16( sp + 1 ) );
 		sp += 3;
 		goto set_psw;
 	case 0x8E: // POP PSW
