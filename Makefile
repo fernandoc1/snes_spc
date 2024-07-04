@@ -15,7 +15,11 @@ all: clean $(OFILES) portaudio
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(OBJDIR)
 	g++ -g -c $< -o $@
+ifeq ($(PRETTY), 1)
+	g++ -E -c $< | grep -v "^#" | clang-format > $@.cpp
+else
 	g++ -E -c $< | grep -v "^#" | grep -v -e '^[[:space:]]*$$' > $@.cpp
+endif
 	#g++ -g -c $@.cpp -o $@
 
 portaudio:
